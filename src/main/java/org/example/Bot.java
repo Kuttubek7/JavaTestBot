@@ -22,11 +22,32 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if(update.getMessage().getText().equals("/start")) {
-            try {
-                sendMessage(update.getMessage().getFrom().getId(), "Приветствую вас мой дорогой друг! это тестовый телеграм бот!", "Button 1", "Button 2");
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+        if(update.hasMessage()) {
+            switch (update.getMessage().getText()) {
+                case "/start" -> {
+                    try {
+                        sendMessage(update.getMessage().getFrom().getId(), "Приветствую вас мой дорогой друг! это тестовый телеграм бот!", "Button 1", "Button 2");
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        } else if (update.hasCallbackQuery()) {
+            switch (update.getCallbackQuery().getData()) {
+                case "test1" -> {
+                    try {
+                        sendMessage(update.getCallbackQuery().getFrom().getId(), "Команда 1 выполнено успешно!");
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case "test2" -> {
+                    try {
+                        sendMessage(update.getCallbackQuery().getFrom().getId(), "Команда 2 выполнено успешно!", "Кнопка 3", "Кнопка 4");
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         }
     }
@@ -47,7 +68,7 @@ public class Bot extends TelegramLongPollingBot {
                 .text(text)
                 .replyMarkup(keyboardMarkup)
                 .build();
-        sendApiMethod(sendMessage);
+        execute(sendMessage);
     }
 
     public InlineKeyboardMarkup sendCallbackQuery(String nameButton1, String nameButton2) {
