@@ -11,7 +11,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class Bot extends TelegramLongPollingBot {
-    private static final String BOT_TOKEN = "7289283734:AAGCxXpSlVDRKQJtZ6pEYIFByme0iEIwIy0";
+    private static final String BOT_TOKEN = "";
     private static final String BOT_USERNAME = "BudgetAssistantBot";
 
     // Класс для хранения промежуточных данных пользователя
